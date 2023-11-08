@@ -8533,12 +8533,7 @@ async function main() {
     })
   } else {
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)('This pull request was not opened for the first time. No action taken.');
-    await octokit.rest.issues.createComment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      body: 'What are we trying to do here?',
-    })
+    return;
   }
 }
 
