@@ -1,17 +1,18 @@
 // require the libraries for actions
-import { getInput, warning } from '@actions/core';
+import { getInput, warning, info } from '@actions/core';
 import * as github from '@actions/github';
 
 // use an async function for the main tasks
 async function main() {
   // get inputs
   const GITHUB_TOKEN = getInput('GITHUB_TOKEN');
+
   const octokit = github.getOctokit(GITHUB_TOKEN);
   // get the context from the github package
   // const { context } = require ('@actions/github');
 
   // log context
-  console.log( JSON.stringify(context.payload, null, "    ") );
+  // console.log( JSON.stringify(context.payload, null, "    ") );
 
   const action = github.context.payload.action
   if (!action) {
@@ -40,13 +41,7 @@ async function main() {
       labels: ['acknowledged by bot'],
     })
   } else {
-    await octokit.rest.issues.createComment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      body: 'Anything else?',
-    })
-
+    return;
   }
 }
 
