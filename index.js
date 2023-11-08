@@ -1,17 +1,38 @@
 // require the libraries for actions
-const core = require('@actions/core');
-const github = require('@actions/github');
+import { getInput, warning } from '@actions/core';
+import { getOctokit, context } from '@actions/github';
 
 // use an async function for the main tasks
 async function main() {
   // get inputs
-  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
-  const input_1 = core.getInput('input_1');
+  const GITHUB_TOKEN = getInput('GITHUB_TOKEN');
+  const octokit = getOctokit(GITHUB_TOKEN);
+  // get the context from the github package
+  // const { context } = require ('@actions/github');
 
-  core.info(`Info: input_1 = ${input_1}`);
-  core.notice('This is a notice');
-  core.warning('This is a warning');
-  core.error('This is a error');
+  // log context
+  console.log( JSON.stringify(context.payload, null, "    ") );
+
+  const action = context.payload.action
+  if (!action) {
+    warning('This action should only be used with pull requests.');
+  }
+
+  // if this pull request is being opened for the first time,
+  // the payload action will be 'opened'. otherwise it will be some
+  // other pull_request action. Take a look at the Webhook payload
+  // object for a pull request event here:
+  // https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#pull_request
+  if (action === 'opened') {
+    await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
+      label: ['acknowledged by bot'],
+    })
+  } else {
+    return;
+  }
 }
 
 // call the function

@@ -1,5 +1,16 @@
-# 05_03-develop-a-javascript-action
-Use these files to test a JavaScript action.
+# 05_05-use-actions-github-in-javascript-actions
+
+## Resources
+- [Webhook events and payloads](https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads)
+- [Octokit documentation](https://octokit.github.io/rest.js)
+
+## The exercise details
+Use these files to test a JavaScript action that uses the @actions/gihtub pacakge.
+
+The action can be triggered on pushes, pull requests, and workflow distpathes.
+- If the workflow event is not a pull request, a warning is issued
+- If the workflow event is a pull request being opened, the action adds a comment and a label to the pull request
+- The action also prints the context that was used to trigger the event
 
 ## From the GitHub Console...
 1. Create a new repo.
@@ -15,7 +26,15 @@ Use these files to test a JavaScript action.
     - Commit the changes.
 1. **NOTE:** The previous step is key for the workflow to complete successfully.
 1. Once the workflow file is commited, the workflow should be triggered by a `push` event.
-1. Confirm the `Hello Universe` workflow runs as expected and includes the output `Hello, Universe!`.
+1. Confirm the `Hello Universe` workflow runs as expected and includes:
+    - a `Warning` annotation saying the that action should only be used with pull requests
+    - the context for a push event in the workflow log
+1. Modify the `README.md` file and commit the change to a new branch.
+1. Use the new branch to create a pull request.
+1. Modify the `README.md` file again and commit the change to the new branch.
+1. Confirm the `Hello Universe` workflow was triggered twice.
+1. Go to the `Pull requests` tab and view the contents of your pull requests.
+1. Confirm that the comment and a label were added.
 
 ## From Your Local System...
 1. Create a new repo and clone it to your local system.
@@ -41,4 +60,13 @@ Use these files to test a JavaScript action.
     ```
 1. Commit the changes and push them to your repo.
 1. Once the commit is pushed, the workflow should be triggered by a `push` event.
-1. Confirm the `Hello Universe` workflow runs as expected and includes the output `Hello, Universe!`.
+1. Confirm the `Hello Universe` workflow runs as expected and includes:
+    - a `Warning` annotation saying the that action should only be used with pull requests
+    - the context for a push event in the workflow log
+1. Modify the `README.md` file and commit the change to a new branch.
+1. Use the new branch to create a pull request.
+1. Modify the `README.md` file again and commit the change to the new branch.
+1. Confirm the `Hello Universe` workflow was triggered twice.
+1. Go to the `Pull requests` tab and view the contents of your pull requests.
+1. Confirm that the comment and a label were added.
+
