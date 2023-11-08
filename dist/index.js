@@ -30230,11 +30230,20 @@ async function main() {
   // object for a pull request event here:
   // https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#pull_request
   if (action === 'opened') {
+    // add a comment to the PR
     await octokit.rest.issues.createComment({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
-      label: ['acknowledged by bot'],
+      body: 'Thanks for opening this pull request! We will review it shortly.',
+    })
+
+    // add a label to the PR
+    await octokit.rest.issues.addLabels({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
+      labels: ['acknowledged by bot'],
     })
   } else {
     return;
