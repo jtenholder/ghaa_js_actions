@@ -8,6 +8,7 @@ async function main() {
   const GITHUB_TOKEN = getInput('GITHUB_TOKEN');
 
   const octokit = github.getOctokit(GITHUB_TOKEN);
+  const context = github.context;
   // get the context from the github package
   // const { context } = require ('@actions/github');
 
