@@ -30212,12 +30212,12 @@ __nccwpck_require__.r(__webpack_exports__);
 async function main() {
   // get inputs
   const GITHUB_TOKEN = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('GITHUB_TOKEN');
-  const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(GITHUB_TOKEN);
+  const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(GITHUB_TOKEN);
   // get the context from the github package
   // const { context } = require ('@actions/github');
 
   // log context
-  console.log( JSON.stringify(_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload, null, "    ") );
+  console.log( JSON.stringify(context.payload, null, "    ") );
 
   const action = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.action
   if (!action) {
@@ -30231,9 +30231,9 @@ async function main() {
   // https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#pull_request
   if (action === 'opened') {
     await octokit.rest.issues.createComment({
-      owner: _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.owner,
-      repo: _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.repo,
-      issue_number: _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.issue.number,
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
       label: ['acknowledged by bot'],
     })
   } else {

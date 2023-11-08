@@ -1,19 +1,19 @@
 // require the libraries for actions
 import { getInput, warning } from '@actions/core';
-import { getOctokit, context } from '@actions/github';
+import * as github from '@actions/github';
 
 // use an async function for the main tasks
 async function main() {
   // get inputs
   const GITHUB_TOKEN = getInput('GITHUB_TOKEN');
-  const octokit = getOctokit(GITHUB_TOKEN);
+  const octokit = github.getOctokit(GITHUB_TOKEN);
   // get the context from the github package
   // const { context } = require ('@actions/github');
 
   // log context
   console.log( JSON.stringify(context.payload, null, "    ") );
 
-  const action = context.payload.action
+  const action = github.context.payload.action
   if (!action) {
     warning('This action should only be used with pull requests.');
   }
