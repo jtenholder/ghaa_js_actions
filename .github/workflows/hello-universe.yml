@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: jtenholder/ghaa_js_actions@05_05
+      - uses: jtenholder/ghaa_js_actions@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           input_1: "testing testing 1 2 3"
