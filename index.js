@@ -41,12 +41,8 @@ async function main() {
       labels: ['acknowledged by bot'],
     })
   } else {
-    await octokit.rest.issues.createComment({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      body: 'What are we trying to do here?',
-    })
+    info('This pull request was not opened for the first time. No action taken.');
+    return;
   }
 }
 
