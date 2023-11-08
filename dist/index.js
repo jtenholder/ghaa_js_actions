@@ -30246,7 +30246,13 @@ async function main() {
       labels: ['acknowledged by bot'],
     })
   } else {
-    return;
+    await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
+      body: 'Anything else?',
+    })
+
   }
 }
 
