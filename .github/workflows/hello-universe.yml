@@ -11,3 +11,23 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           input_1: "testing testing 1 2 3"
+  release_cuts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            dist:
+              - 'dist/**'
+            non_code:
+              - '**/*.md'
+
+      # run only if some file in 'src' folder was changed
+      - name: Code changes
+        if: steps.changes.outputs.src == 'true'
+        run: echo "src changed"
+      - name: No code changes
+        if: steps.changes.outputs.non_code == 'true'
+        run: echo "src not changed"
