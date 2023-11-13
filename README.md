@@ -70,3 +70,6 @@ The action can be triggered on pushes, pull requests, and workflow distpathes.
 1. Go to the `Pull requests` tab and view the contents of your pull requests.
 1. Confirm that the comment and a label were added.
 
+## Code trigger changes
+If any file that is considered code will trigger a workflow. If no we will not trigger that workflow.
+

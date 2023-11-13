@@ -19,11 +19,15 @@ jobs:
         id: changes
         with:
           filters: |
-            src:
+            dist:
               - 'dist/**'
+            non_code:
+              - '**/*.md'
 
       # run only if some file in 'src' folder was changed
-      - if: steps.changes.outputs.src == 'true'
+      - name: Code changes
+        if: steps.changes.outputs.src == 'true'
         run: echo "src changed"
-      - if: steps.changes.outputs.src == 'false'
+      - name: No code changes
+        if: steps.changes.outputs.non_code == 'true'
         run: echo "src not changed"
